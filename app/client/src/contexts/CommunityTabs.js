@@ -6,7 +6,7 @@ import type { Node } from 'react';
 // --- components ---
 export const CommunityTabsContext: Object = createContext({
   activeTabIndex: 0,
-  infoToggleChecked: true,
+  infoToggleChecked: false,
 });
 
 type Props = {

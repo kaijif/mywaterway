@@ -464,7 +464,25 @@ function WaterbodyInfo({
         Unable to find a waterbody report for this waterbody.
       </p>
     );
+    const endangeredSpeciesLink =
 
+      <div css={paddedMarginBoxStyles(textBoxStyles)}>
+        <a
+          rel="noopener noreferrer"
+          target="_blank"
+          href={
+            `/waterbody-report/` +
+            `${attributes.organizationid}/` +
+            `${attributes.assessmentunitidentifier}/` +
+            `${attributes.reportingcycle || ''}`
+          }
+        >
+          <i css={iconStyles} className="fas fa-file-alt" aria-hidden="true" />
+          View Endangered Species Report
+        </a>
+        &nbsp;&nbsp;
+        <small css={modifiedDisclaimerStyles}>(opens new browser tab)</small>
+      </div>
   const [selectedUseField, setSelectedUseField] = useState<
     (typeof useFields)[number] | null
   >(null);
@@ -768,7 +786,7 @@ function WaterbodyInfo({
         {useBasedCondition.condition === 'polluted'
           ? waterbodyPollutionCategories('Identified Issues')
           : ''}
-
+        <a href={"http://localhost:8080"}>Endangered animals</a>
         {waterbodyReportLink}
       </>
     );

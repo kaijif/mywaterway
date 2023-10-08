@@ -193,7 +193,7 @@ function Community() {
 
   return (
     <Page>
-      <TabLinks />
+
       <WindowSize>
         {({ width, height }) => {
           if (fullscreenActive) {

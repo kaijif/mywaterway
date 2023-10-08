@@ -1,6 +1,6 @@
 import 'react-app-polyfill/stable';
 import smoothscroll from 'smoothscroll-polyfill';
-import { StrictMode } from 'react';
+import { StrictMode, useState } from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
@@ -20,6 +20,7 @@ import { defaultErrorBoundaryMessage } from 'config/errorMessages';
 // types
 // required once project-wide
 import type {} from 'styled-components/cssprop';
+import EndangeredSpeciesMap from 'components/endangered/EndangeredSpecies';
 
 smoothscroll.polyfill();
 
@@ -34,28 +35,35 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
+
 // --- components ---
 function Root() {
-  return (
-    <BrowserRouter>
-      <LookupFilesProvider>
-        <FetchedDataProvider>
-          <LocationSearchProvider>
-            <GlossaryProvider>
-              <SurroundingsProvider>
-                <AddSaveDataWidgetProvider>
-                  <GlobalStyle />
-                  <ErrorBoundary message={defaultErrorBoundaryMessage}>
-                    <AppRoutes />
-                  </ErrorBoundary>
-                </AddSaveDataWidgetProvider>
-              </SurroundingsProvider>
-            </GlossaryProvider>
-          </LocationSearchProvider>
-        </FetchedDataProvider>
-      </LookupFilesProvider>
-    </BrowserRouter>
-  );
+  const [isEndangeredView, setIsEndangeredView] = useState(false)
+  if (isEndangeredView) {
+    return <EndangeredSpeciesMap />
+  }
+  else {
+      return (
+        <BrowserRouter>
+          <LookupFilesProvider>
+            <FetchedDataProvider>
+              <LocationSearchProvider>
+                <GlossaryProvider>
+                  <SurroundingsProvider>
+                    <AddSaveDataWidgetProvider>
+                      <GlobalStyle />
+                      <ErrorBoundary message={defaultErrorBoundaryMessage}>
+                        <AppRoutes />
+                      </ErrorBoundary>
+                    </AddSaveDataWidgetProvider>
+                  </SurroundingsProvider>
+                </GlossaryProvider>
+              </LocationSearchProvider>
+            </FetchedDataProvider>
+          </LookupFilesProvider>
+        </BrowserRouter>
+    );
+  }
 }
 
 const rootElement: HTMLElement | null = document.getElementById('root');

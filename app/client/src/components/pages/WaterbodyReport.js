@@ -344,6 +344,8 @@ function WaterbodyReport() {
             });
 
             setMonitoringLocations({ status: 'success', data: locations });
+            console.log("location location location")
+            console.log(locations)
           },
           (err) => {
             setMonitoringLocations({ status: 'failure', data: [] });

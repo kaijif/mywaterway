@@ -161,7 +161,6 @@ type Props = {
   route: string,
   label: Node,
 };
-
 function LocationSearch({ route, label }: Props) {
   const navigate = useNavigate();
 
@@ -339,6 +338,8 @@ function LocationSearch({ route, label }: Props) {
         setInputText(search.searchTerm);
       },
     );
+
+    
 
     // create a watcher for the suggestions based on search input
     reactiveUtils.watch(
@@ -743,7 +744,39 @@ function LocationSearch({ route, label }: Props) {
   }, [suggestionsRef]);
 
   let layerEndIndex = -1;
+  let setLocation = (ev) => {
+      setGeolocating(true);
 
+      navigator.geolocation.getCurrentPosition(
+        // success function called when geolocation succeeds
+        (position) => {
+          const url = services.data.locatorUrl;
+          const params = {
+            location: new Point({
+              x: position.coords.longitude,
+              y: position.coords.latitude,
+            }),
+          };
+
+          locator
+            .locationToAddress(url, params)
+            .then((candidate) => {
+              setGeolocating(false);
+              navigate(
+                encodeURI(
+                  route.replace('{urlSearch}', candidate.address),
+                ),
+              );
+            });
+        },
+        // failure function called when geolocation fails
+        (err) => {
+          console.error(err);
+          setGeolocating(false);
+          setGeolocationError(true);
+        },
+      );
+  } 
   return (
     <>
       {errorMessage && (
@@ -1002,44 +1035,12 @@ function LocationSearch({ route, label }: Props) {
                 css={buttonStyles}
                 className="btn"
                 type="button"
-                onClick={(ev) => {
-                  setGeolocating(true);
-
-                  navigator.geolocation.getCurrentPosition(
-                    // success function called when geolocation succeeds
-                    (position) => {
-                      const url = services.data.locatorUrl;
-                      const params = {
-                        location: new Point({
-                          x: position.coords.longitude,
-                          y: position.coords.latitude,
-                        }),
-                      };
-
-                      locator
-                        .locationToAddress(url, params)
-                        .then((candidate) => {
-                          setGeolocating(false);
-                          navigate(
-                            encodeURI(
-                              route.replace('{urlSearch}', candidate.address),
-                            ),
-                          );
-                        });
-                    },
-                    // failure function called when geolocation fails
-                    (err) => {
-                      console.error(err);
-                      setGeolocating(false);
-                      setGeolocationError(true);
-                    },
-                  );
-                }}
+                onClick={setLocation}
               >
                 {!geolocating ? (
                   <>
                     <i className="fas fa-crosshairs" aria-hidden="true" />
-                    &nbsp;&nbsp;Use My Location
+                    &nbsp;&nbsp;Recenter
                   </>
                 ) : (
                   <>

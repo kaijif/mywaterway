@@ -287,7 +287,7 @@ function Page({ children }: Props) {
 
   return (
     <>
-      <GlossaryPanel path={pageName} />
+      {/* <GlossaryPanel path={pageName} />
 
       <div css={topLinksStyles}>
         <ul>
@@ -378,7 +378,7 @@ function Page({ children }: Props) {
             Explore, Discover and Learn about your water.
           </p>
         </div>
-      </div>
+      </div> */}
 
       {dataDisplayed && (
         <>

@@ -37,6 +37,7 @@ import {
 import { resetCanonicalLink, removeJsonLD } from 'utils/utils';
 // errors
 import { servicesLookupServiceError } from 'config/errorMessages';
+import EndangeredSpeciesMap from 'components/endangered/EndangeredSpecies';
 
 const modifiedErrorBoxStyles = css`
   ${errorBoxStyles}
@@ -81,6 +82,7 @@ function AppRoutes() {
           <Route path=":urlSearch" element={<CommunityTabs />} />
           <Route path=":urlSearch/:tabName" element={<CommunityTabs />} />
         </Route>
+        <Route path="/endangeredSpecies" element={<EndangeredSpeciesMap/>} />
         <Route path="/state-and-tribal" element={<StateTribal />}>
           <Route index element={<StateTribalIntro />} />
         </Route>

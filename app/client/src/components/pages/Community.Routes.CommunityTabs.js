@@ -523,7 +523,7 @@ function CommunityTabs() {
             <h1 css={tabTitleStyles}>{tabs[activeTabIndex].title}</h1>
           </div>
 
-          <div>
+          {/* <div>
             <label>
               <span>Show Text</span>
               <Switch
@@ -532,14 +532,14 @@ function CommunityTabs() {
                 ariaLabel="Show Text"
               />
             </label>
-          </div>
+          </div> */}
         </header>
 
         <TabPanels>
           {tabs.map((tab) => (
             <TabPanel key={tab.title}>
               {/* only display upper tab content if info toggle is checked */}
-              {infoToggleChecked && tab.upper}
+              {false && tab.upper}
             </TabPanel>
           ))}
         </TabPanels>

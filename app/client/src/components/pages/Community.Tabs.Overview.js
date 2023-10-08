@@ -367,6 +367,7 @@ function WaterbodiesTab() {
   }
 
   return (
+    <>
     <WaterbodyList
       waterbodies={waterbodies}
       fieldName={null}
@@ -379,6 +380,8 @@ function WaterbodiesTab() {
         </span>
       }
     />
+    <a href="/endangered/index.html">See Endangered Species</a>
+    </>
   );
 }
 
